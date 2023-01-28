@@ -2,36 +2,41 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
+const generateTeam = require("./src/template");
+const fs = require("fs");
+
+
+const staffData = []
 
 inquirer
   .prompt([
     {
       type: "input",
-      name: "name",
+      name: "Name",
       message: "Enter the team manager's name:",
     },
     {
       type: "input",
-      name: "id",
+      name: "Id",
       message: "Enter the team manager's employee ID:",
     },
     {
       type: "input",
-      name: "email",
+      name: "Email",
       message: "Enter the team manager's email address:",
     },
     {
       type: "input",
-      name: "officeNumber",
+      name: "OfficeNumber",
       message: "Enter the team manager's office number:",
     },
   ])
   .then((answers) => {
     let manager = new Manager(
-      answers.name,
-      answers.id,
-      answers.email,
-      answers.officeNumber
+      answers.Name,
+      answers.Id,
+      answers.Email,
+      answers.OfficeNumber
     );
     console.log(manager);
     teamPrompt();
@@ -48,7 +53,7 @@ const teamPrompt = () => {
       },
     ])
     .then((answers) => {
-      switch (answers.memberType) {
+      switch (answers.Role) {
         case "Engineer":
           addEngineer();
           break;
@@ -56,7 +61,7 @@ const teamPrompt = () => {
           addIntern();
           break;
         default:
-          exit();
+          createTeam();
           break;
       }
     });
@@ -67,31 +72,31 @@ const addEngineer = () => {
     .prompt([
       {
         type: "input",
-        name: "name",
+        name: "Name",
         message: "Enter the engineer's name:",
       },
       {
         type: "input",
-        name: "id",
+        name: "Id",
         message: "Enter the engineer's employee ID:",
       },
       {
         type: "input",
-        name: "email",
+        name: "Email",
         message: "Enter the engineer's email address:",
       },
       {
         type: "input",
-        name: "github",
+        name: "Github",
         message: "Enter the engineer's GitHub username:",
       },
     ])
     .then((answers) => {
       let engineer = new Engineer(
-        answers.name,
-        answers.id,
-        answers.email,
-        answers.github
+        answers.Name,
+        answers.Id,
+        answers.Email,
+        answers.Github
       );
       console.log(engineer);
       teamPrompt();
@@ -103,33 +108,38 @@ const addIntern = () => {
     .prompt([
       {
         type: "input",
-        name: "name",
+        name: "Name",
         message: "Enter the intern's name:",
       },
       {
         type: "input",
-        name: "id",
+        name: "Id",
         message: "Enter the intern's employee ID:",
       },
       {
         type: "input",
-        name: "email",
+        name: "Email",
         message: "Enter the intern's email address:",
       },
       {
         type: "input",
-        name: "school",
+        name: "School",
         message: "Enter the intern's school:",
       },
     ])
     .then((answers) => {
       let intern = new Intern(
-        answers.name,
-        answers.id,
-        answers.email,
-        answers.school
+        answers.Name,
+        answers.Id,
+        answers.Email,
+        answers.School
       );
       console.log(intern);
       teamPrompt();
     });
 };
+
+function createTeam() {
+  fs.writeFileSync("./dist/team.html" , generateTeam(staffData), "utf-8")
+
+}
