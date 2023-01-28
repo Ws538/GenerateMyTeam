@@ -5,9 +5,7 @@ const Engineer = require("./lib/Engineer");
 const generateTeam = require("./src/template");
 const fs = require("fs");
 
-
-const staffData = []
-
+const staffData = [];
 inquirer
   .prompt([
     {
@@ -38,7 +36,7 @@ inquirer
       answers.Email,
       answers.OfficeNumber
     );
-    console.log(manager);
+    staffData.push(manager);
     teamPrompt();
   });
 
@@ -53,14 +51,15 @@ const teamPrompt = () => {
       },
     ])
     .then((answers) => {
-      switch (answers.Role) {
+      console.log(answers);
+      switch (answers.memberType) {
         case "Engineer":
           addEngineer();
           break;
         case "Intern":
           addIntern();
           break;
-        default:
+        case "I'm done":
           createTeam();
           break;
       }
@@ -98,7 +97,7 @@ const addEngineer = () => {
         answers.Email,
         answers.Github
       );
-      console.log(engineer);
+      staffData.push(engineer);
       teamPrompt();
     });
 };
@@ -134,12 +133,11 @@ const addIntern = () => {
         answers.Email,
         answers.School
       );
-      console.log(intern);
+      staffData.push(intern);
       teamPrompt();
     });
 };
 
 function createTeam() {
-  fs.writeFileSync("./dist/team.html" , generateTeam(staffData), "utf-8")
-
+  fs.writeFileSync("./dist/team.html", generateTeam(staffData), "utf-8");
 }

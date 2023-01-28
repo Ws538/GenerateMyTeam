@@ -1,11 +1,12 @@
 //creates the team
-const generateTeam = (myTeam) => {
-//create the manager in html
-    const generateManager = (manager) => {
-        return `
+const generateTeam = (team) => {
+  //create the manager in html
+  console.log(team);
+  const generateManager = (manager) => {
+    return `
     <div class="card">
         <h1>
-            ${manager.getname()}
+            ${manager.getName()}
         </h1>
         <h2>
             Manager
@@ -17,14 +18,14 @@ const generateTeam = (myTeam) => {
         </ul>
     </div>
             `;
-      };
-    
-//create the engineer in html
+  };
+
+  //create the engineer in html
   const generateEngineer = (engineer) => {
     return `
 <div class="card">
     <h1>
-        ${engineer.getname()}
+        ${engineer.getName()}
     </h1>
     <h2>
         ${engineer.getRole()}
@@ -37,12 +38,12 @@ const generateTeam = (myTeam) => {
 </div>
         `;
   };
-//create the intern in html
+  //create the intern in html
   const generateIntern = (intern) => {
     return `
 <div class="card">
     <h1>
-        ${intern.getname()}
+        ${intern.getName()}
     </h1>
     <h2>
         ${intern.getRole()}
@@ -55,13 +56,27 @@ const generateTeam = (myTeam) => {
 </div>
         `;
   };
-}
 
-  //push each html section when intern or engineer selected, Manger is always pushed 
+  //push each role into html.
+  const html = [];
 
+  team.forEach((employee) => {
+    let roleHtml = "";
+    if (employee.getRole() === "Manager") {
+      roleHtml = generateManager(employee);
+    } else if (employee.getRole() === "Engineer") {
+      roleHtml = generateEngineer(employee);
+    } else if (employee.getRole() === "Intern") {
+      roleHtml = generateIntern(employee);
+    }
+    if (roleHtml) html.push(roleHtml);
+  });
+
+  return html.join("");
+};
 //export
-module.exports = (myTeam) => {
-    return `
+module.exports = (team) => {
+  return `
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,8 +98,8 @@ module.exports = (myTeam) => {
     <h1>My Team</h1>
 
 </div>
-${generateTeam(myTeam)}
+${generateTeam(team)}
 </body>
 </html>
-    `
-}
+    `;
+};
