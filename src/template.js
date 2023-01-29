@@ -4,56 +4,62 @@ const generateTeam = (team) => {
   console.log(team);
   const generateManager = (manager) => {
     return `
+    
     <div class="card">
         <h1>
             ${manager.getName()}
         </h1>
         <h2>
-            Manager
+            Manager 💼
         </h2>
         <ul>
             <li>ID: ${manager.getId()}</li>
-            <li>Email: ${manager.getEmail()} </li>
+            <li>Email: <a href="mailto:${manager.getEmail()}">  ${manager.getEmail()} </a> </li>
             <li>Office Number: ${manager.getOfficeNumber()} </li>
         </ul>
     </div>
+    
             `;
   };
 
   //create the engineer in html
   const generateEngineer = (engineer) => {
     return `
+    
 <div class="card">
     <h1>
         ${engineer.getName()}
     </h1>
     <h2>
-        ${engineer.getRole()}
+        ${engineer.getRole()} 💻
     </h2>
     <ul>
         <li>ID: ${engineer.getId()}</li>
-        <li>Email: ${engineer.getEmail()} </li>
-        <li>GitHub: ${engineer.getGithub()} </li>
+        <li>Email: <a href="mailto:${engineer.getEmail()}">  ${engineer.getEmail()} </a> </li>
+        <li>Github: <a href="https://github.com/${engineer.getGithub()}"> ${engineer.getGithub()} </a> </li>
     </ul>
 </div>
+
         `;
   };
   //create the intern in html
   const generateIntern = (intern) => {
     return `
+    
 <div class="card">
     <h1>
         ${intern.getName()}
     </h1>
     <h2>
-        ${intern.getRole()}
+        ${intern.getRole()} 🎓
     </h2>
     <ul>
         <li>ID: ${intern.getId()}</li>
-        <li>Email: ${intern.getEmail()} </li>
+        <li>Email: <a href="mailto:${intern.getEmail()}">  ${intern.getEmail()} </a> </li>
         <li>School: ${intern.getSchool()} </li>
     </ul>
 </div>
+
         `;
   };
 
@@ -83,22 +89,17 @@ module.exports = (team) => {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .card {
-          border: 1px solid #ccc;
-          padding: 10px;
-          margin: 10px;
-          width: 300px;
-        }
-      </style>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-<div>
+<div class="header">
     <h1>My Team</h1>
 
 </div>
+<div class="container">
 ${generateTeam(team)}
+</div>
 </body>
 </html>
     `;
