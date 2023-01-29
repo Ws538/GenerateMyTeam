@@ -5,6 +5,7 @@ const Engineer = require("./lib/Engineer");
 const generateTeam = require("./src/template");
 const fs = require("fs");
 
+//initial inquirer for manager
 const staffData = [];
 inquirer
   .prompt([
@@ -40,6 +41,7 @@ inquirer
     teamPrompt();
   });
 
+  //inquirer for team, choices for more team members or generate HTML
 const teamPrompt = () => {
   inquirer
     .prompt([
@@ -66,6 +68,7 @@ const teamPrompt = () => {
     });
 };
 
+// inquirer for engineer
 const addEngineer = () => {
   inquirer
     .prompt([
@@ -101,7 +104,7 @@ const addEngineer = () => {
       teamPrompt();
     });
 };
-
+//inquirer for intern
 const addIntern = () => {
   inquirer
     .prompt([
@@ -138,6 +141,7 @@ const addIntern = () => {
     });
 };
 
+//generate html
 function createTeam() {
   fs.writeFileSync("./dist/team.html", generateTeam(staffData), "utf-8");
 }
