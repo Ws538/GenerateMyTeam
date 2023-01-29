@@ -3,7 +3,7 @@ const Engineer = require("../lib/Engineer")
 it("Can set Github username via constructor" , () => {
     const testValue = "testGithub"
     const e = new Engineer("William", 2, "test@test.com" , testValue);
-    expect(e.github).toBe(testValue);
+    expect(e.Github).toBe(testValue);
 });
 
 it("getRole() should return \"Engineer\"", () => {
